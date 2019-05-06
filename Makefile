@@ -3,6 +3,12 @@
 all: demo
 	./$<
 
+git:
+	rm -f *.o demo test
+	git add --all
+	git commit -m "update files"
+	git push
+	
 demo:  Demo.o 
 	clang++-5.0 -std=c++17 $^ -o demo
 
