@@ -1,4 +1,3 @@
-
 #include "iostream"
 
 //NameSpace for a Tasks
@@ -16,40 +15,41 @@ namespace itertools {
             this->from = from;
             this->to = to;
         }
-
+//
         class iterator {
 
         private:
-
-
-            T* ptr;
+            T* ptr_iter;
 
         public:
 
+//Iterator inheritance 
 
-            iterator(T* ptr = nullptr): ptr(ptr) {}
+            iterator(T* ptr_iter = nullptr): ptr_iter(ptr_iter) {}
 
-            T& operator*() const {
-                return *ptr;
-            }
-
-            iterator& operator++() {
-                (*ptr)++;
+           iterator& operator++() {
+                (*ptr_iter)++;
                 return *this;
             }
 
+
+            T& operator*() const {
+                return *ptr_iter;
+            }
+
+          
             const iterator operator++(int) {
-                iterator tmp = *this;
-                ptr++;
-                return tmp;
+                iterator temp = *this;
+                ptr_iter++;
+                return temp;
             }
 
             bool operator!=(iterator  it) const {
-                return *ptr != *it.ptr;
+                return *ptr_iter != *it.ptr_iter;
             }
 
             bool operator==(iterator it) const {
-                return *ptr == *it.ptr;
+                return *ptr_iter == *it.ptr_iter;
             }
 
 
