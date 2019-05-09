@@ -1,70 +1,92 @@
+#include "iostream"
 
-// #include "iostream"
-
-// //NameSpace for a Tasks
-// namespace itertools {
+//NameSpace for a Tasks
+namespace itertools {
     
-//     template <typename T> 
-//     class chain {
+    template <typename T1, typename T2> 
+    class chain {
     
-//     public: // Public variables and functions
-       
-//         T from;
-//         T to;
+    private: // private variables and functions
+        T1 iterable_A;
+        T2 iterable_B;
 
-//         chain(T from, T to) {
-//             this->from = from;
-//             this->to = to;
-//         }
+    public:
+        chain(T1 start, T2 end) :  iterable_A(start), iterable_B(end) {}
+        
+    auto begin(){ 
+        return  iterator<decltype(iterable_A.begin()),decltype(iterable_B.begin())>(iterable_A.begin(), iterable_B.begin()); }  // iteratable object
 
-//         class iterator {
+    auto end() {
+        return iterator<decltype(iterable_A.end()),decltype(iterable_B.end())>(iterable_A.end(), iterable_B.end()); }  // iteratable object  
+ 
+    template <typename C1, typename C2>
+        class iterator {
 
-//         private:
+        private:
+            C1 iter_A; // iterator A
+            C2 iter_B; // iterator B
+         bool checkKind;
+
+        public:
+            iterator(C1 itA , C2 itB): iter_A(itA) , iter_B(itB), checkKind(true)  {}
+
+           iterator<C1,C2>& operator++() {
+                if(checkKind){
+                    ++iter_A;
+                }else {
+                    ++iter_B;
+                }
+                return *this;
+            }
 
 
-//             T* ptr;
+            decltype(*iter_A) operator*() const {
 
-//         public:
+                if(checkKind){
+                    return *iter_A;
+                }else {
+                    return *iter_B;
+                }
+            }
 
+          
+            // const iterator<C1,C2> operator++(int) {
 
-//             iterator(T* ptr = nullptr): ptr(ptr) {}
+            //     if(checkKind){
+            //     iterator temp = *iter_A;
+            //     iter_A++;
+            //     return temp;
+            //     }else{
+            //     iterator temp = *iter_B;
+            //     iter_B++;
+            //     return temp;
+            //     }
+                
+            // }
 
-//             T& operator*() const {
-//                 return *ptr;
-//             }
+            bool operator!=(iterator<C1,C2>  it){
+                if(checkKind && !(iter_A != it.iter_A)){
+                    checkKind = false;
+                }
+                if(checkKind){
+                    return iter_A != it.iter_A;
+                }else{
+                    return iter_B != it.iter_B;
+                }
+            }
 
-//             iterator& operator++() {
-//                 (*ptr)++;
-//                 return *this;
-//             }
+            // bool operator==(iterator<C1,C2> it)  {
 
-//             iterator operator++(int) {
-//                 iterator tmp = *this;
-//                 ptr++;
-//                 return tmp;
-//             }
-
-//             bool operator!=(iterator  it) const {
-//                 return *ptr != *it.ptr;
-//             }
-
-//             bool operator==(iterator it) const {
-//                 return *ptr == *it.ptr;
-//             }
+            //     if(checkKind){
+            //         return *iter_A == *it.iter_A;
+            //     }else {
+            //         return *iter_B == *it.iter_B;
+            //     }            
+            // }
 
 
          
-//         }; // END OF CLASS ITERATOR
+        }; // END OF CLASS ITERATOR
 
-//         iterator begin() 
-//         {
-//             return iterator{&from};
-//         }
-
-//         iterator end() 
-//         {
-//             return iterator{&to};
-//         }
-
-//     };
-// }
+    };
+}

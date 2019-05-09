@@ -15,7 +15,6 @@ namespace itertools {
             this->from = from;
             this->to = to;
         }
-//
         class iterator {
 
         private:
@@ -38,19 +37,19 @@ namespace itertools {
             }
 
           
-            const iterator operator++(int) {
-                iterator temp = *this;
-                ptr_iter++;
-                return temp;
-            }
+            // const iterator operator++(int) {
+            //     iterator temp = *this;
+            //     ptr_iter++;
+            //     return temp;
+            // }
 
             bool operator!=(iterator  it) const {
                 return *ptr_iter != *it.ptr_iter;
             }
 
-            bool operator==(iterator it) const {
-                return *ptr_iter == *it.ptr_iter;
-            }
+            // bool operator==(iterator it) const {
+            //     return *ptr_iter == *it.ptr_iter;
+            // }
 
 
          
