@@ -17,6 +17,7 @@ using namespace std;
 using namespace itertools;
 
 int main() {
+
 	cout << endl << endl << "Range of ints: " << endl;
 	for (int i: range(5,9))
 		cout << i;    // 5678
@@ -36,22 +37,22 @@ int main() {
 	cout << endl << endl << "Chain of two ranges: " << endl;
 	for (int i: chain(range(1,4), range(5,8)))
 		cout << i;    // prints 123567
-	// cout << endl << endl << "Chain of a range and a string: " << endl;
-	// for (char i: chain(range('a','e'), string("hello")))
-	// 	cout << i;    // abcdhello
+	cout << endl << endl << "Chain of a range and a string: " << endl;
+	for (char i: chain(range('a','e'), string("hello")))
+		cout << i;    // abcdhello
 
-	// cout << endl << endl << "Zip a range of ints and a string (must be of the same size)" << endl;
-	// for (auto pair: zip(range(1,6), string("hello")))
-	// 	cout << pair << "  ";    // 1,h  2,e  3,l  4,l  5,o
-	// cout << endl << endl << "Zip of zips" << endl;
-	// for (auto pair: zip(zip(range(1,4), string("xyz")),zip(string("abc"),range(6,9))))
-	// 	cout << pair << "  ";    // 1,x,a,6  2,y,b,7  3,z,c,8
+	cout << endl << endl << "Zip a range of ints and a string (must be of the same size)" << endl;
+	for (auto pair: zip(range(1,6), string("hello")))
+		cout << pair << "  ";    // 1,h  2,e  3,l  4,l  5,o
+	cout << endl << endl << "Zip of zips" << endl;
+	for (auto pair: zip(zip(range(1,4), string("xyz")),zip(string("abc"),range(6,9))))
+		cout << pair << "  ";    // 1,x,a,6  2,y,b,7  3,z,c,8
 
-	// cout << endl << endl << "Cartesian product of a range of ints and a string (can be of different sizes)" << endl;
-	// for (auto pair: product(range(1,4), string("hello")))
-	// 	cout << pair << "  ";    // 1,h  1,e  1,l  1,l  1,o  2,h  2,e  2,l  2,l  2,o  3,h  3,e  3,l  3,l  3,o
+	cout << endl << endl << "Cartesian product of a range of ints and a string (can be of different sizes)" << endl;
+	for (auto pair: product(range(1,4), string("hello")))
+		cout << pair << "  ";    // 1,h  1,e  1,l  1,l  1,o  2,h  2,e  2,l  2,l  2,o  3,h  3,e  3,l  3,l  3,o
 
-	// cout << endl << endl << "Power-set of range of ints " << endl;
+	cout << endl << endl << "Power-set of range of ints " << endl;
 	// for (auto subset: powerset(range(1,4)))
 	// 	cout << subset;  // {}{1}{2}{1,2}{3}{1,3}{2,3}{1,2,3}
 	// cout << endl << endl << "Power-set of chain " << endl;
