@@ -49,21 +49,6 @@ namespace itertools {
                 }
             }
 
-          
-            // const iterator<C1,C2> operator++(int) {
-
-            //     if(checkKind){
-            //     iterator temp = *iter_A;
-            //     iter_A++;
-            //     return temp;
-            //     }else{
-            //     iterator temp = *iter_B;
-            //     iter_B++;
-            //     return temp;
-            //     }
-                
-            // }
-
             bool operator!=(iterator<C1,C2>  it){
                 if(checkKind && !(iter_A != it.iter_A)){
                     checkKind = false;
@@ -74,15 +59,6 @@ namespace itertools {
                     return iter_B != it.iter_B;
                 }
             }
-
-            // bool operator==(iterator<C1,C2> it)  {
-
-            //     if(checkKind){
-            //         return *iter_A == *it.iter_A;
-            //     }else {
-            //         return *iter_B == *it.iter_B;
-            //     }            
-            // }
 
 
          
