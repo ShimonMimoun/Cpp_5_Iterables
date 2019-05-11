@@ -1,69 +1,51 @@
-#include "iostream"
+namespace itertools
+{
 
-//NameSpace for a Tasks
-namespace itertools {
-    
-    template <typename T> 
-    class range {
-    
-    public: // Public variables and functions
-       
-        T from;
-        T to;
 
-        range(T from, T to) {
-            this->from = from;
-            this->to = to;
+template <class T>
+
+class range
+{
+
+
+private:
+    T _start; // __starting point
+    T _end;   // stopping point.
+
+    class iterator
+    {
+
+    public:
+        T value;
+
+        //constructor
+        iterator(T v) : value(v){}
+
+        // operators
+        bool operator!=(iterator const &other) const
+        { 
+            return value != (other.value);
         }
-        class iterator {
 
-        private:
-            T* ptr_iter;
-
-        public:
-
-//Iterator inheritance 
-
-            iterator(T* ptr_iter = nullptr): ptr_iter(ptr_iter) {}
-
-           iterator& operator++() {
-                (*ptr_iter)++;
-                return *this;
-            }
-
-
-            T& operator*() const {
-                return *ptr_iter;
-            }
-
-          
-            // const iterator operator++(int) {
-            //     iterator temp = *this;
-            //     ptr_iter++;
-            //     return temp;
-            // }
-
-            bool operator!=(iterator  it) const {
-                return *ptr_iter != *it.ptr_iter;
-            }
-
-            // bool operator==(iterator it) const {
-            //     return *ptr_iter == *it.ptr_iter;
-            // }
-
-
-         
-        }; // END OF CLASS ITERATOR
-
-        iterator begin() 
+        T operator*() const
         {
-            return iterator{&from};
+            return value;
         }
 
-        iterator end() 
+
+        iterator &operator++()
         {
-            return iterator{&to};
-        }
 
+            ++value;
+            return *this;
+        }
     };
-}
+
+public:
+    range(T from, T to) : _start(from), _end(to) {}                      
+    iterator begin() const { return iterator(_start); }  
+    iterator end() const { return iterator(_end); }      
+}; // class
+
+
+} // namespace itertools

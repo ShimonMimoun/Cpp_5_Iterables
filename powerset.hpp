@@ -3,7 +3,6 @@
 #include <cmath>
 #include <iostream>
 
-//NameSpace for a Tasks
 namespace itertools {
         
     template <class T> 
@@ -55,9 +54,9 @@ namespace itertools {
             std::set<decltype(*iter_begin)> S;
             unsigned int i = index;
             while (i != 0 && _element_iterator != iter_end)
-            { // convert to binary, each '1' digit is an index of an element.
+            { 
                 unsigned int r = i % 2;
-                i = i >> 1; //divide by 2.
+                i = i >> 1; 
 
                 if (r == 1)
                     S.insert(*_element_iterator);
