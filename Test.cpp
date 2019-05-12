@@ -290,9 +290,6 @@ for (auto subset: powerset(chain(range('a','c'),range('x','z'))))
 
 // }
 
-  
-  testcase.setname("range test:")
-    .CHECK_EQUAL(range(5,9),"5 6 7 8");
 
     testcase.print(cout, /*show_grade=*/false);
     grade = testcase.grade();
