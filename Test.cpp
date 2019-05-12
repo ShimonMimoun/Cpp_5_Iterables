@@ -27,24 +27,18 @@ int main() {
 	int signal = setjmp(badkan::longjmp_buffer);
 	if (signal == 0) {
 
-		range a11{1, 2};
 
-		range a044{0, 44};
 
-	
-		range Saz{'a', 'z'};
-		range Saa{'a', 'a'};
-		range Smq{'m' , 'q'};
+//		Constant Range,Chain,Zip,Product,Powerset
+
+
+		range a11{1, 1};	range a044{0, 44};range Saz{'a', 'z'};range Saa{'a', 'a'};range Smq{'m' , 'q'};
 		
-		chain CR14R03{range{1, 4}, range{0, 3}};
-		chain CRACRDG{range{'a', 'c'}, range{'d', 'g'}};
-		chain CACSTEST{range{'a', 'c'}, string{"test"}};
+		chain CR14R03{range{1, 4}, range{0, 3}}; chain CRACRDG{range{'a', 'c'}, range{'d', 'g'}};chain CACSTEST{range{'a', 'c'}, string{"test"}};
 		
-		zip ZCR14RAD{range{1, 4}, range{'a', 'd'}};
-		zip ZCACSAB{range{'a', 'c'}, string{"ab"}};
+		zip ZCR14RAD{range{1, 4}, range{'a', 'd'}}; 	zip ZCACSAB{range{'a', 'c'}, string{"ab"}};
 
-		product PR14RAD{range{1, 4}, range{'a', 'd'}};
-		product PCACSAB{range{'a', 'c'}, string{"hello"}};
+		product PR14RAD{range{1, 4}, range{'a', 'd'}}; product PCACSAB{range{'a', 'c'}, string{"hello"}};
 	
 
 
@@ -52,7 +46,9 @@ int main() {
 	//////////////////////////////////////////////////////////////////////////////////////////////////////
 		////////////////////////////////// TEST RANGE 	/////////////////////////////////
 	//////////////////////////////////////////////////////////////////////////////////////////////////////
-	
+
+
+//	Simple tests or we only advance the figure is we check if it is equal.
 	
 		testcase.setname("TEST RANGE ");
 	
@@ -98,6 +94,20 @@ int main() {
 
 
 
+
+
+
+
+
+
+/*From there we will find tests that we walk in the following way.
+We find a table that is in fact the data that must be received each time.
+And simply, it remains more than check the outgoing data with what we expect to return
+*/
+
+
+
+
 	//////////////////////////////////////////////////////////////////////////////////////////////////////
 		////////////////////////////////// TEST CHAIN 	/////////////////////////////////
 	//////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -105,7 +115,7 @@ int main() {
 	
 
 
-	testcase.setname("TEST CHAIN ");
+testcase.setname("TEST CHAIN ");
 
 number=0;
 int tab[]={1,2,3,5,6,7};
@@ -199,6 +209,14 @@ for (auto pair: zip(range(6,11), range(0,5)))
 
 }
 
+number=0;
+		string tab16[]={"6,a","7,b","8,c","9,d","10,e"};
+for (auto pair: zip(range(6,11), range('a','f')))
+{
+		testcase.CHECK_OUTPUT(pair,tab16[number]);
+		number++;
+
+}
 
 number=0;
 		string tab12[]={"0,a","1,b","2,c","3,d","4,e","5,f"};
@@ -234,6 +252,47 @@ for (auto pair: product(range(0,5), range(5,7)))
 
 }
 
+
+	number=0;
+		string tab17[]={"0,a","0,b","1,a","1,b","2,a","2,b","3,a","3,b","4,a","4,b"};
+for (auto pair: product(range(0,5), range('a','c')))
+{
+		testcase.CHECK_OUTPUT(pair,tab17[number]);
+		number++;
+
+}
+
+	//////////////////////////////////////////////////////////////////////////////////////////////////////
+		////////////////////////////////// TEST PowerSet 	/////////////////////////////////
+	//////////////////////////////////////////////////////////////////////////////////////////////////////
+	testcase.setname(" TEST PowerSet");
+	number=0;
+		string tab18[]={"{}","{1}","{2}","{1,2}","{3}","{1,3}","{2,3}","{1,2,3}"};
+for (auto pair: powerset(range(1,4))){
+		testcase.CHECK_OUTPUT(pair,tab18[number]);
+		number++;
+
+}
+
+	number=0;
+		string tab20[]={"{}","{a}","{b}","{a,b}","{x}","{a,x}","{b,x}","{a,b,x}","{y}","{a,y}","{b,y}","{a,b,y}","{x,y}","{a,x,y}","{b,x,y}","{a,b,x,y}"};
+for (auto subset: powerset(chain(range('a','c'),range('x','z'))))
+{		testcase.CHECK_OUTPUT(subset,tab20[number]);
+		number++;
+
+}
+
+// 	number=0;
+// 	string tab21[]={"{}","{a}","{b}","{a,b}","{c}","{a,c}","{b,c}","{a,b,c}"};
+// for (auto subset: powerset(string("abc")))
+// {		testcase.CHECK_OUTPUT(subset,tab21[number]);
+// 		number++;
+
+// }
+
+  
+  testcase.setname("range test:")
+    .CHECK_EQUAL(range(5,9),"5 6 7 8");
 
     testcase.print(cout, /*show_grade=*/false);
     grade = testcase.grade();
