@@ -14,10 +14,10 @@ namespace itertools {
     public:
     powerset(T start) : iterable(start) {} 
 
-    auto begin() { 
+    auto begin()const { 
     return iterator<decltype(iterable.begin())> (iterable.begin(), iterable.end()); 
     } 
-    auto end()  { 
+    auto end() const { 
     return iterator<decltype(iterable.begin())>(iterable.end(), iterable.end());
     }    
  

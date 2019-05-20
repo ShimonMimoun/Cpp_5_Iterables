@@ -13,10 +13,10 @@ namespace itertools {
     public:
         chain(T1 start, T2 end) :  iterable_A(start), iterable_B(end) {}
         
-    auto begin(){ 
+    auto begin()const{ 
         return  iterator<decltype(iterable_A.begin()),decltype(iterable_B.begin())>(iterable_A.begin(), iterable_B.begin()); }  // iteratable object
 
-    auto end() {
+    auto end() const{
         return iterator<decltype(iterable_A.end()),decltype(iterable_B.end())>(iterable_A.end(), iterable_B.end()); }  // iteratable object  
  
     template <typename C1, typename C2>
@@ -60,9 +60,9 @@ namespace itertools {
                 }
             }
 
-
          
         }; // END OF CLASS ITERATOR
 
-    };
+	};
+
 }

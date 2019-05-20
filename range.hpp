@@ -27,7 +27,7 @@ private:
             return value != (other.value);
         }
 
-        T operator*() const
+        const T operator*() const
         {
             return value;
         }
@@ -39,13 +39,21 @@ private:
             ++value;
             return *this;
         }
+
     };
 
 public:
+
     range(T from, T to) : _start(from), _end(to) {}                      
-    iterator begin() const { return iterator(_start); }  
-    iterator end() const { return iterator(_end); }      
+		iterator begin() const {
+			return iterator(_start);
+		}
+
+		iterator end() const {
+			return iterator(_end);
+		} 
 }; // class
+
 
 
 } // namespace itertools
