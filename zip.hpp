@@ -1,4 +1,5 @@
-#include "iostream"
+#include <iostream>
+#include <utility>
 
 //NameSpace for a Tasks
 namespace itertools {
@@ -13,12 +14,12 @@ namespace itertools {
     public:
         zip(T1 start, T2 end) :  iterable_A(start), iterable_B(end) {}
         
-    auto begin()const{ 
-        return  iterator<decltype(iterable_A.begin()),decltype(iterable_B.begin())>(iterable_A.begin(), iterable_B.begin()); }  // iteratable object
-
-    auto end()const {
-        return iterator<decltype(iterable_A.end()),decltype(iterable_B.end())>(iterable_A.end(), iterable_B.end()); }  // iteratable object  
- 
+   auto begin() const{
+          return iterator <decltype(iterable_A.begin()),decltype(iterable_B.begin())>(iterable_A.begin(), iterable_B.begin());
+        }
+        auto end() const{
+          return iterator <decltype(iterable_A.end()),decltype(iterable_B.end())>(iterable_A.end(), iterable_B.end());
+         }
     template <typename C1, typename C2>
         class iterator {
 
@@ -37,15 +38,16 @@ namespace itertools {
             }
 
 
-            std::pair<decltype(*iter_A),decltype(*iter_B)> operator*() const {
+            auto operator*() const
+          {
+           return pair< decltype(*iter_A),decltype(*iter_B)> (*iter_A,*iter_B);
+          }
 
-             return  std::pair<decltype(*iter_A),decltype(*iter_B)> (*iter_A , *iter_B);
-            }
 
-            bool operator!=(iterator<C1,C2>  it){
-                return (iter_A != it.iter_A) && (iter_B != it.iter_B);
- 
-            }
+            bool operator!= (const iterator& other)
+          {
+            return (iter_A != other.iter_A) && (iter_B != other.iter_B);
+           }
 
 
          
@@ -59,4 +61,6 @@ namespace itertools {
 
     return os;
 }
+
+
 }

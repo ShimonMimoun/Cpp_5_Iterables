@@ -1,103 +1,112 @@
-#include "iostream"
-#include <set> // for set operations
-#include <cmath>
-#include <iostream>
+#include<vector> // dinamic array
+#include<cmath> // for pow(x,n)
 
-namespace itertools {
-        
-    template <class T> 
-    class powerset {
-    
-    private: 
-        T iterable; // start point
+using namespace std;
 
-    public:
-    powerset(T start) : iterable(start) {} 
+namespace itertools{
 
-    auto begin()const { 
-    return iterator<decltype(iterable.begin())> (iterable.begin(), iterable.end()); 
-    } 
-    auto end() const { 
-    return iterator<decltype(iterable.begin())>(iterable.end(), iterable.end());
-    }    
- 
-    template <class C>
-        class iterator {
-
-        private:
-            C iter_begin; // iterator A
-            C iter_end; // iterator A
-            unsigned   index;
-            unsigned   count_elements;
+// print vecotr(present a subvector)
+  template <typename OBJECT>
+  ostream & operator << (ostream & output, const vector<OBJECT> & input){
+    output << "{";
+    auto it = input.begin();
+    if(it != input.end()) { // first element is without comma seperator.
+        output << *it;
+        ++it;}
+    while (it != input.end()){
+        output << ',' << *it;
+        ++it;}
+    output << "}";
+    return output;
+}
+////////*****************//////////
 
 
-        public:
-            iterator(C itA , C itB): iter_begin(itA), iter_end(itB) , index(0),count_elements(0)  {
+  template<typename CONTAINER>
+  class powerset{
 
-            C _element_iterator = iter_begin;
-            while (_element_iterator != iter_end)
-            {
-                ++count_elements;
-                ++_element_iterator;
-            }
+    CONTAINER A; // one exactly container
 
-            count_elements = std::pow(2, count_elements);
-            }
+  public:
 
-           iterator<C>& operator++() {
-               ++index;
-               return *this;
-            }
+    powerset(CONTAINER temp) : A(temp){}
 
-            set<decltype(*iter_begin)> operator*() const         {
-            C _element_iterator = iter_begin;
-            std::set<decltype(*iter_begin)> S;
-            unsigned int i = index;
-            while (i != 0 && _element_iterator != iter_end)
-            { 
-                unsigned int r = i % 2;
-                i = i >> 1; 
 
-                if (r == 1)
-                    S.insert(*_element_iterator);
+    template<typename OBJECT>
+    class iterator{
 
-                ++_element_iterator;
-            }
+      private :
 
-            return S;
+      vector<vector<OBJECT>>  getAllSubsets(const vector<OBJECT> & set){
+        vector<vector<OBJECT>> subset;
+          vector<OBJECT> empty;
+          subset.push_back( empty );
+          for (int i = 0; i < set.size(); i++){
+              vector<vector<OBJECT>> subsetTemp = subset;
+              for (int j = 0; j < subsetTemp.size(); j++)
+                  subsetTemp[j].push_back( set[i] );
+              for (int j = 0; j < subsetTemp.size(); j++)
+                  subset.push_back( subsetTemp[j] );
+          }
+          return subset;
+      }
+
+      vector<OBJECT> change(const OBJECT i,const OBJECT j){
+        vector<OBJECT> ans;
+        OBJECT runner = i;
+        while(runner != j){
+          ans.push_back(runner);
+          ++runner;
         }
+        return ans;
+      }
 
-        bool operator!=(iterator<C> const &it) const {
-            return ((count_elements - index) != (it.count_elements - it.index - 1));
+      size_t length(const OBJECT start,const OBJECT final){
+        OBJECT runner = start;
+        size_t ans = 0;
+        while(runner != final){
+          ans++;
+          ++runner;
+        }
+        return pow(2,ans);
+      }
 
-            }
- 
-         
-        }; // END OF CLASS ITERATOR
+      public :
 
+      OBJECT start;
+      OBJECT final;
+
+      uint index;
+
+      size_t size;
+
+      vector<vector<OBJECT>> list;
+
+      iterator(OBJECT start_temp,OBJECT final_temp) : start(start_temp),final(final_temp),size(length(start_temp,final_temp)),index(0){}
+
+      auto operator*(){
+        vector<OBJECT> v = change(start,final);
+        list = getAllSubsets(v);
+        vector<typename remove_const<typename remove_reference<decltype(*start)>::type>::type> vector; // every call to this operator function the vector is absoulutly new
+        for(auto i : list[index]){
+        vector.push_back(*i);
+        }
+        return vector;
+      }
+
+      auto operator++() { // advaced value
+        ++index;
+        return *this;
+      }
+
+      bool operator!= (const iterator & temp){
+        return (index != size);
+      }
 
     };
-    
-template <typename D>
-std::ostream &operator<<(std::ostream &os, const std::set<D> &S)
-{
-    os << "{";
 
-    auto it = S.begin();
-    if(it != S.end())
-    { // first element is without comma seperator.
-        os << *it; 
-        ++it;
-    }
+    auto begin() const{return iterator<decltype(A.begin())>(A.begin(), A.end());}
+    auto end() const{return iterator<decltype(A.begin())>(A.end(), A.end());}
 
-    while (it != S.end())
-    {
-        os << ',' << *it;
-        ++it;
-    }
-
-    os << "}";
-
-    return os;
-}
-}
+  };
+};

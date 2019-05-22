@@ -1,4 +1,7 @@
-#include "iostream"
+#pragma once
+
+#include <iterator>
+#include<iostream>
 
 //NameSpace for a Tasks
 namespace itertools {
